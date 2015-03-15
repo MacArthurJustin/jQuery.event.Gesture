@@ -1,5 +1,5 @@
 {
-  "name": "jQuery-Gesture",
+  "name": "jquery-gesture",
   "version": "0.6.3",
   "description": "An event plugin to add unified Gesture support to websites",
   "main": "jquery.event.Gesture.min.js",
