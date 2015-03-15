@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	<title>Gesture jQuery Event tests</title>
+
+	<link rel="stylesheet" href="slidebars.css">
+	<link rel="stylesheet" href="example-styles.css">
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="jquery.event.Gesture.min.js"></script>
+	<script src="slidebars.js"></script>
+	<style>
+		#SwipeRight {
+			width: 64px;
+			height: 64px;
+			position: absolute;
+			left: 0;
+			top: 225px;
+			background: url("swiperight.png");
+		}
+		
+		#TapBox {
+			position: absolute;
+			left: 100px;
+			top: 275px;
+			width: 190px;
+			border: thin solid black;
+			text-align: center;
+			padding: 25px 3px;
+		}
+		
+		#HoldBox {
+			position: absolute;
+			left: 300px;
+			top: 275px;
+			width: 190px;
+			border: thin solid black;
+			text-align: center;
+			padding: 25px 3px;
+		}
+		
+		#FlingBox {
+			position: absolute;
+			left: 100px;
+			top: 175px;
+			width: 90px;
+			border: thin solid black;
+			text-align: center;
+			padding: 35px 3px;
+		}
+		
+		#PinchBox {
+			position: absolute;
+			left: 500px;
+			top: 175px;
+			width: 188px;
+			height: 188px;
+			border: thin solid black;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="sb-site" style="overflow: auto;">
+		<h1>Gesture Events Example v 0.6.3</h1>
+		<p>
+			This demo utilizes the <a href="http://plugins.adchsm.me/slidebars/">Slidebars plugin</a><br/>
+			This plug-in exposes swipe, fling, pinch, tap and hold (Rotate in the future) for sites to use.<br/>
+			All events are compatible with touch and mouse.
+		</p>
+		<div id="TapBox">Tapped<br/><span id="taps">0</span> Times</div>
+		<div id="HoldBox">Held<br/><span id="holds">0</span> Times</div>
+		<div id="FlingBox">Fling me --></div>
+		<div id="PinchBox">Pinch me<br/>PinchDelta: <span id="pinchD">100%</span></div>
+		<div id="SwipeRight"></div>
+	</div>
+	
+	<div id="CloseBar" class="sb-slidebar sb-left">
+		<p>This is swiped in slidebar.<br/> Check out <a href="http://plugins.adchsm.me/slidebars/">Slidebars homepage.</a></p>
+	</div>
+
+	<script>
+		var FlyRight, FlyLeft,
+			onPinch, PinchZoom = 100;
+		
+		FlyRight = function () {
+			var $this = $("#FlingBox");
+			
+			$this.animate({
+				left: "400px"
+			}, 1000, function() {
+				$this.unbind("flingRight");
+				$this.bind("flingLeft", FlyLeft);
+				$this.html("<-- Fling Me");
+			});
+		};
+		
+		FlyLeft = function () {
+			var $this = $("#FlingBox");
+			
+			$this.animate({
+				left: "100px"
+			}, 1000, function() {
+				$this.unbind("flingLeft");
+				$this.bind("flingRight", FlyRight);
+				$this.html("Fling Me -->");
+			});
+		};
+		
+		onPinch = function ( event ){
+			var $this = $("#PinchBox"), pPercent;
+			
+			PinchZoom += event.pinchDelta;
+			PinchZoom = Math.max(188, PinchZoom);
+			
+			pPercent = Math.round((PinchZoom / 188.0) * 1000) / 10;
+			$("#pinchD").html( pPercent + "%");
+			
+			$this.css("width", PinchZoom + "px");
+			$this.css("height", PinchZoom + "px");
+		};
+  
+		(function($) {
+			$(document).ready(function() {
+				$.slidebars();
+			});
+			
+			$("#SwipeRight").on("swipeRight", function() {
+				$.slidebars.open("left");
+			});
+			$("#TapBox").on("tap", function() {
+				var $taps = $("#taps");
+				$taps.html( parseInt($taps.html()) + 1);
+			});
+			$("#HoldBox").on("hold", function() {
+				var $holds = $("#holds");
+				$holds.html( parseInt($holds.html()) + 1);
+			});
+			
+			$("#FlingBox").on("flingRight", FlyRight);
+			
+			$('#PinchBox').bind('pinch', onPinch );
+		}) (jQuery);
+	</script>
+</body>
+</html>
+
