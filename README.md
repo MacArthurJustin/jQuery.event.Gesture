@@ -1,4 +1,4 @@
-# jQuery.event.Gesture [![Version](http://img.shields.io/badge/version-0.6.3-brightgreen.svg)]
+# jQuery.event.Gesture ![Version](http://img.shields.io/badge/version-0.6.3-brightgreen.svg)
 A jQuery plugin to add Gesture support to websites using mouse and touch. Gestures include tap, hold, swipe, fling, pinch, rotate
 
 ## Getting Started
