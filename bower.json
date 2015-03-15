@@ -1,0 +1,27 @@
+{
+  "name": "jquery-gesture",
+  "main": "jQuery.event.Gesture.min.js",
+  "version": "0.6.3",
+  "homepage": "https://github.com/MacArthurJustin/jQuery.event.Gesture",
+  "authors": [
+    "MacArthurJustin <MacArthurJustin@gmail.com>"
+  ],
+  "description": "An event plugin to add unified Gesture support to websites",
+  "keywords": [
+    "Gesture",
+    "Swipe",
+    "Fling",
+    "Pinch",
+    "Rotate",
+    "Touch",
+    "Events"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
